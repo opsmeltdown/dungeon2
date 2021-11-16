@@ -20,7 +20,7 @@ public class Item {
     // for armor, it's protection
     private int strength;
 
-    public Item(ItemType type, String name, int weight, int value, int strength) {
+    public Item(String name, int weight, int value, int strength, ItemType type) {
         this.type = type;
         this.name = name;
         this.weight = weight;

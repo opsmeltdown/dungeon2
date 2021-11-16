@@ -10,16 +10,17 @@ public class Game {
     private ArrayList<Box> boxes;
     private ArrayList<Enemy> enemies;
 
-    public Game() {
+    public Game(String name) {
         room = new Room();
-        player = new Player(room.getPlayerStart());
+        player = new Player(room.getPlayerStart(), name);
         boxes = room.getBoxes();
         enemies = room.getEnemies();
     }
 
     // prints a help menu to the left of the map
     private void showHelp() {
-        String[] cmds = {"Commands:",
+        String[] cmds = {player.getName() + " :" + player.getHealth() + " hp",
+			 "Commands:",
                          "---------",
                          "Move: Arrow Keys",
                          "Pickup an item: p",

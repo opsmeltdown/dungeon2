@@ -4,18 +4,19 @@ import ansi_terminal.*;
 
 public class Player extends Character {
     private Inventory items;
+    private String name;
 
-    public Player(Position start) {
+    public Player(Position start, String name) {
         // our starting details
         super(start.getRow(), start.getCol(), '@', Color.CYAN, 50);
-
+	this.name = name;
         // we can carry 100 pounds of items
         items = new Inventory(100);
-
+	
         // give them some basic stuff to start with
         // TODO make up your own starting equipment!
-        items.addAndEquip(new Item(ItemType.Weapon, "Iron Dagger", 5, 12, 7));
-        items.addAndEquip(new Item(ItemType.Armor, "Leather Armor", 15, 20, 3));
+        items.addAndEquip(new Item("Doran's Blade", 5, 12, 7, ItemType.Weapon));
+        items.addAndEquip(new Item("Cloth Armor", 15, 20, 5, ItemType.Armor));
     }
 
     @Override
@@ -31,7 +32,7 @@ public class Player extends Character {
 
     @Override
     public String getName() {
-        return "Player";
+        return name;
     }
 
     @Override

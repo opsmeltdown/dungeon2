@@ -10,8 +10,8 @@ public class Enemy extends Character {
     private static Random rng;
     private boolean battleActive;
 
-    public Enemy(String name, int row, int col, int hp, int damage, int protection) {
-        super(row, col, '*', Color.RED, hp);
+    public Enemy(String name, char display,int row, int col, int hp, int damage, int protection) {
+	super(row, col, display, Color.RED, hp);
         this.name = name;
         this.damage = damage;
         this.protection = protection;
