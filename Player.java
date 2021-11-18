@@ -9,10 +9,10 @@ public class Player extends Character {
     public Player(Position start, String name) {
         // our starting details
         super(start.getRow(), start.getCol(), '@', Color.CYAN, 50);
-	this.name = name;
+        this.name = name;
         // we can carry 100 pounds of items
         items = new Inventory(100);
-	
+
         // give them some basic stuff to start with
         // TODO make up your own starting equipment!
         items.addAndEquip(new Item("Doran's Blade", 5, 12, 7, ItemType.Weapon));

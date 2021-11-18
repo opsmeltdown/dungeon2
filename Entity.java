@@ -46,6 +46,10 @@ public class Entity {
         if (room.canGo(newRow, newCol)) {
             // draw a space where it currently is
             Terminal.warpCursor(position.getRow(), position.getCol());
+            Position portalPosition = room.getPortalPosition();
+            if (portalPosition != null && position.equals(portalPosition)) {
+            	System.out.print('+');
+            }
             System.out.print(" ");
 
             // and then move it

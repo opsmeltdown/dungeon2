@@ -13,45 +13,14 @@ public class Room {
     private int rows;
     private int cols;
 
-    public Room() {
+    public Room(String[] newGrid, int newRows, int newCols) {
         // this initializes the room to one specific space
-        rows = 30;
-        cols = 60;
+        rows = newRows;
+        cols = newCols;
 
         // the actual room geometry
         // the i cells refer to where an item should be placed at
-        grid  = new String[] {
-            "##################                ######################    ",
-            "##              ##                ##      i           ##    ",
-            "##  @           ###########       ##        *         ##    ",
-            "##                       ##       ##                  ##    ",
-            "##              #######  ##       ##################  ##    ",
-            "##              ##   ##  ##                       ##  ##    ",
-            "##################   ##  ##################       ##  ##    ",
-            "                     ##                  ##       ##  ##    ",
-            "                     ##   *  i           ##       ##  ##    ",
-            "                     ##                  ##       ##  ##    ",
-            "                     ##############  ######       ##  ##    ",
-            "                                 ##  ##           ##  ##    ",
-            "                                 ##  ##           ##  ##    ",
-            "                       ############  ###############  ######",
-            "                       ##                                 ##",
-            "                       ##                                 ##",
-            "    #####################                  *              ##",
-            "    ##                                                    ##",
-            "    ##  #################                                 ##",
-            "    ##  ##             ##                                 ##",
-            "    ##  ##             #################  ##################",
-            "    ##  ##                            ##  ##                ",
-            "    ##  ##                            ##  ##                ",
-            "    ##  ##                       #######  #######           ",
-            "    ##  ##                       ##            ##           ",
-            "######  ####                     ##  i  *      ##           ",
-            "##        ##                     ##            ##           ",
-            "## i  *   ##                     ################           ",
-            "##        ##                                                ",
-            "############                                                "
-        };
+        grid = newGrid;
     }
 
     // returns the player's strting location in this room
@@ -95,6 +64,17 @@ public class Room {
 
         return enemies;
     }
+    
+    public Position getPortalPosition() {
+    	for (int row = 0; row < rows; row++) {
+    		for (int col = 0; col < cols; col++) {
+    			if (grid[row].charAt(col) == '+') {
+    				return new Position(row, col);
+    			}
+    		}
+    	}
+    	return null;
+    }
 
     public int getRows() {
         return rows;
@@ -113,6 +93,8 @@ public class Room {
                 if (cell == '#') {
                     // a unicode block symbol
                     System.out.print('\u2588');
+                } else if (cell == '+') {
+                	System.out.print('+');
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
                     System.out.print(' ');

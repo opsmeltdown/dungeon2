@@ -5,30 +5,48 @@ import java.util.ArrayList;
 import ansi_terminal.*;
 
 public class Game {
+	private World world;
     private Room room;
     private Player player;
+    private Position portalPosition;
     private ArrayList<Box> boxes;
     private ArrayList<Enemy> enemies;
+    private String name;
 
-    public Game(String name) {
-        room = new Room();
+    public Game(String newName) {
+    	name = newName;
+    	world = new World();
+    	room = world.getCurrentRoom();
         player = new Player(room.getPlayerStart(), name);
         boxes = room.getBoxes();
         enemies = room.getEnemies();
+        portalPosition = room.getPortalPosition();
+    }
+    
+    private void newRoom() {
+    	world.nextRoom();
+    	room = world.getCurrentRoom();
+    	player = new Player(room.getPlayerStart(), name);
+        boxes = room.getBoxes();
+        enemies = room.getEnemies();
+        portalPosition = room.getPortalPosition();
+        redrawMapAndHelp();
     }
 
     // prints a help menu to the left of the map
     private void showHelp() {
         String[] cmds = {player.getName() + " :" + player.getHealth() + " hp",
 			 "Commands:",
-                         "---------",
-                         "Move: Arrow Keys",
-                         "Pickup an item: p",
-                         "Drop an item: d",
-                         "List items: l",
-                         "Equip weapon: w",
-                         "Equip armor: a",
-                         "Quit: q"
+             "---------",
+             "Move: Arrow Keys",
+             "Pickup an item: p",
+             "Drop an item: d",
+             "List items: l",
+             "Equip weapon: w",
+             "Equip armor: a",
+             "Save: s",
+             "Load: l",
+             "Quit: q"
         };
         Terminal.setForeground(Color.GREEN);
         for (int row = 0; row < cmds.length; row++) {
@@ -107,6 +125,14 @@ public class Game {
                 player.getInventory().equipArmor();
                 redrawMapAndHelp();
                 break;
+            
+//            case s:
+//            	save();
+//            	break;
+//            	
+//            case l:
+//            	load();
+//            	break;
 
             // handle movement
             case LEFT: player.move(0, -1, room);
@@ -144,6 +170,15 @@ public class Game {
         }
 
         return null;
+    }
+    
+    private boolean checkForPortal() {
+    	Position playerLocation = player.getPosition();
+ 
+    	if (portalPosition == null) {
+    		return false;
+    	}
+    	return playerLocation.equals(portalPosition);
     }
 
     // check for battles and return false if player has died
@@ -205,6 +240,19 @@ public class Game {
             Box thingHere = checkForBox();
             if (thingHere != null) {
                 setStatus("Here you find: " + thingHere.getItem().getName());
+            }
+
+            // check if we are on a portal
+            if (portalPosition != null) {
+                boolean portalHere = checkForPortal();
+                if (portalHere) {
+                	setStatus("You find a portal. Would you like to take it? y/n");
+                	Key portalKey = Terminal.getKey();
+                	System.out.println("'" + portalKey + "'");
+                	if (portalKey == Key.y) {
+                		newRoom();
+                	}
+                }
             }
         }
     }

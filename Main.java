@@ -5,15 +5,22 @@ import ansi_terminal.*;
 import java.util.Scanner;
 public class Main {
     public static void main(String args[]) {
-	String name;
-	Scanner input = new Scanner(System.in);
-        // put termain in raw mode
-        
-	System.out.print("The Ruination is underway. The Ruined King, Viego, has returned in an attempt to resurrect the Queen of his long lost kingdom, Isolde.\n\r");
-	System.out.print("The Sentinels of Light have failed, you are the final Champion who can stop him from spreading the deadly Mist throughout the entire world.\n\r");
-	System.out.print("What is your name Champion?\n\r");
-	name = input.nextLine();
-	Terminal.rawMode();
+    	Terminal.clear();
+    	Terminal.rawMode();
+    	
+        String[] story = {
+			 "The Ruination is underway. The Ruined King, Viego, has returned in an attempt to resurrect the Queen of his long lost kingdom, Isolde.",
+             "The Sentinels of Light have failed, you are the final Champion who can stop him from spreading the deadly Mist throughout the entire world.",
+        };
+        Terminal.setForeground(Color.GREEN);
+        for (int row = 0; row < story.length; row++) {
+            Terminal.warpCursor(row + 1, 0);
+            System.out.print(story[row]);
+        }
+        Terminal.warpCursor(story.length + 1, 0);
+        String name = Terminal.getLine("What is your name Champion? ");
+        Terminal.reset();
+
         // make and run the Game
         Game game = new Game(name);
         game.run();
