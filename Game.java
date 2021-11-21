@@ -35,8 +35,8 @@ public class Game {
 
     // prints a help menu to the left of the map
     private void showHelp() {
-        String[] cmds = {player.getName() + " :" + player.getHealth() + " hp",
-			 "Commands:",
+        String[] cmds = {player.getName(),
+	     "Commands:",
              "---------",
              "Move: Arrow Keys",
              "Pickup an item: p",

@@ -95,7 +95,9 @@ public class Room {
                     System.out.print('\u2588');
                 } else if (cell == '+') {
                 	System.out.print('+');
-                } else {
+                } else if (cell == '-'){
+			System.out.print('-');
+		}else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
                     System.out.print(' ');
                 }
