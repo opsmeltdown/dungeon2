@@ -17,7 +17,7 @@ public class Game {
     	name = newName;
     	world = new World();
     	room = world.getCurrentRoom();
-        player = new Player(room.getPlayerStart(), name);
+        player = new Player(room.getPlayerStart(), name, 50);
         boxes = room.getBoxes();
         enemies = room.getEnemies();
         portalPosition = room.getPortalPosition();
@@ -26,7 +26,7 @@ public class Game {
     private void newRoom() {
     	world.nextRoom();
     	room = world.getCurrentRoom();
-    	player = new Player(room.getPlayerStart(), name);
+    	player = new Player(room.getPlayerStart(), name, 50);
         boxes = room.getBoxes();
         enemies = room.getEnemies();
         portalPosition = room.getPortalPosition();
@@ -41,7 +41,7 @@ public class Game {
              "Move: Arrow Keys",
              "Pickup an item: p",
              "Drop an item: d",
-             "List items: l",
+             "List items: i",
              "Equip weapon: w",
              "Equip armor: a",
              "Save: s",
@@ -107,7 +107,7 @@ public class Game {
                 pickup();
                 break;
 
-            case l:
+            case i:
                 player.getInventory().print();
                 redrawMapAndHelp();
                 break;
@@ -126,13 +126,13 @@ public class Game {
                 redrawMapAndHelp();
                 break;
             
-//            case s:
-//            	save();
-//            	break;
-//            	
-//            case l:
-//            	load();
-//            	break;
+            case s:
+            	save();
+            	break;
+
+            case l:
+            	load();
+            	break;
 
             // handle movement
             case LEFT: player.move(0, -1, room);
@@ -248,12 +248,44 @@ public class Game {
                 if (portalHere) {
                 	setStatus("You find a portal. Would you like to take it? y/n");
                 	Key portalKey = Terminal.getKey();
-                	System.out.println("'" + portalKey + "'");
                 	if (portalKey == Key.y) {
                 		newRoom();
                 	}
                 }
             }
+        }
+    }
+    
+    private void save() {
+		try {
+			int roomNum = world.getRoomNum();
+			SaveLoad.save(roomNum, player, boxes, enemies);
+			setStatus("Game Saved!");
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+    }
+    
+    private void load() {
+        try {
+            int loadRoomNum = SaveLoad.loadRoomNum();
+            Player loadPlayer = SaveLoad.loadPlayer();
+            ArrayList<Box> loadBoxes = SaveLoad.loadBoxes();
+            ArrayList<Enemy> loadEnemies = SaveLoad.loadEnemies();
+            
+            name = loadPlayer.getName();
+            world = new World();
+            world.setRoomNum(loadRoomNum);
+            room = world.getCurrentRoom();
+            player = loadPlayer;
+            boxes = loadBoxes;
+            enemies = loadEnemies;
+            portalPosition = room.getPortalPosition();
+            
+            redrawMapAndHelp();
+            setStatus("Game Loaded!");
+        } catch(Exception e) {
+        	System.out.println(e);
         }
     }
 }

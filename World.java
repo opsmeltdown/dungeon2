@@ -113,6 +113,14 @@ public class World {
 		return rooms[currentRoom];
 	}
 	
+	public void setRoomNum(int num) {
+		currentRoom = num;
+	}
+	
+	public int getRoomNum() {
+		return currentRoom;
+	}
+	
 	public void nextRoom() {
 		currentRoom++;
 	}

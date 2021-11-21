@@ -36,6 +36,10 @@ public class Entity {
     public int getCol() {
         return position.getCol();
     }
+    
+    public char getDisplay() {
+    	return this.display;
+    }
 
     // translate the entity in space, unless it would hit a wall
     public boolean move(int rowChange, int colChange, Room room) {
