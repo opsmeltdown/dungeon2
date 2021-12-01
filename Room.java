@@ -93,8 +93,8 @@ public class Room {
                 if (cell == '#') {
                     // a unicode block symbol
                     System.out.print('\u2588');
-                } else if (cell == '+') {
-                	System.out.print('+');
+                } else if (cell != '*' && cell != 'i' && cell != '@') {
+                	System.out.print(cell);
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
                     System.out.print(' ');
@@ -103,6 +103,14 @@ public class Room {
 
             System.out.print("\n\r");
         }
+    }
+    
+    public char getStaticCharAtLocation(int row, int col) {
+    	char staticChar = grid[row].charAt(col);
+    	if (staticChar != '*' && staticChar != 'i' && staticChar != '@') {
+    		return staticChar;
+    	}
+    	return ' ';
     }
 
     // returns if a given cell in the map is walkable or not

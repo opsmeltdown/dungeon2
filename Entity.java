@@ -48,13 +48,10 @@ public class Entity {
         int newCol = position.getCol() + colChange;
 
         if (room.canGo(newRow, newCol)) {
-            // draw a space where it currently is
+            // draw a space or character where it currently is
             Terminal.warpCursor(position.getRow(), position.getCol());
-            Position portalPosition = room.getPortalPosition();
-            if (portalPosition != null && position.equals(portalPosition)) {
-            	System.out.print('+');
-            }
-            System.out.print(" ");
+            char draw = room.getStaticCharAtLocation(position.getRow(), position.getCol());
+            System.out.print(draw);
 
             // and then move it
             position = new Position(newRow, newCol);

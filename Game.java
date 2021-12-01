@@ -35,7 +35,7 @@ public class Game {
 
     // prints a help menu to the left of the map
     private void showHelp() {
-        String[] cmds = {player.getName() + " :" + player.getHealth() + " hp",
+        String[] cmds = {player.getName() + ": " + player.getHealth() + " hp",
 			 "Commands:",
              "---------",
              "Move: Arrow Keys",
@@ -196,7 +196,9 @@ public class Game {
         // now do the battle
         if (opponent != null) {
             opponent.setBattleActive();
-            return player.fight(opponent, room, enemies);
+            boolean killed = player.fight(opponent, room, enemies);
+            showHelp();
+            return killed;
         }
 
         return true;
@@ -234,6 +236,15 @@ public class Game {
             if (checkBattles() == false) {
                 setStatus("You have been killed :(\n\r");
                 playing = false;
+            }
+            
+            // check for health fountain
+            Position playerPos = player.getPosition();
+            char charHere = room.getStaticCharAtLocation(playerPos.getRow(), playerPos.getCol());
+            if (charHere == 'H') {
+            	setStatus("There is a health fountain here, you are healed to full health.");
+            	player.setHealth(50);
+            	showHelp();
             }
 
             // check if we are on a box and print what's in it

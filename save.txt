@@ -1,0 +1,95 @@
+1
+Tyler
+2
+4
+50
+2
+4
+7
+Doran's Blade
+5
+12
+7
+Weapon
+Cloth Armor
+15
+20
+5
+Armor
+1
+40
+Wit's End
+14
+17
+12
+Weapon
+8
+29
+Iron Ore
+9
+10
+0
+Other
+25
+40
+Thornmail
+25
+90
+23
+Armor
+27
+3
+Null Magic Mantle
+5
+15
+13
+Armor
+2
+43
+Ruined Mage
+*
+10
+7
+3
+5
+11
+Ruined Mage
+*
+10
+7
+3
+8
+26
+Ruined Mage
+*
+10
+7
+3
+16
+44
+Ghoul
+*
+15
+5
+3
+18
+35
+Miss Fortune
+M
+20
+11
+5
+24
+49
+Ghoul
+*
+15
+5
+3
+27
+14
+Ruined Mage
+*
+10
+7
+3
