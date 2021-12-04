@@ -25,9 +25,13 @@ public class EnemyGenerator {
 			enemyBank.add(new Enemy("Miss Fortune",'M', row, col, 20, 11, 2));
 		}
 
-        Random randomNum = new Random();
+        if (row == 26 && col == 39) {
+		return new Enemy("Viego", 'V', row, col, 50, 20, 15); 
+	} else {
+		Random randomNum = new Random();
 		int randomIndex = randomNum.nextInt(enemyBank.size());
 		return enemyBank.get(randomIndex);
+	}
     }
 }
 

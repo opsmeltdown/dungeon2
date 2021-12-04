@@ -67,11 +67,14 @@ public class Room {
      */
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	World world = new World();
+	int roomNum = world.getRoomNum();
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (grid[row].charAt(col) == '*') {
-                    enemies.add(EnemyGenerator.generate(row, col));
+                    enemies.add(EnemyGenerator.generate(row, col, roomNum));
                 }
+		
             }
         }
 
@@ -116,7 +119,7 @@ public class Room {
                 if (cell == '#') {
                     // a unicode block symbol
                     System.out.print('\u2588');
-                } else if (cell != '*' && cell != 'i' && cell != '@') {
+                } else if (cell != '*' && cell != 'i' && cell != '@' && cell != 'V') {
                 	System.out.print(cell);
                 } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
