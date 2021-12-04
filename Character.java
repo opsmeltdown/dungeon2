@@ -17,6 +17,9 @@ public abstract class Character extends Entity {
     public int getHealth() {
         return hp;
     }
+    public void setHealth(int newHp) {
+    	hp = newHp;
+    }
     public abstract int getDamage();
     public abstract int getProtection();
     public abstract String getName();

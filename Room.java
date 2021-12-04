@@ -54,14 +54,14 @@ public class Room {
     // returns a set of enemies from this map, similarly to the boxes above
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	World world = new World();
+	int roomNum = world.getRoomNum();
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (grid[row].charAt(col) == '*') {
-                    enemies.add(EnemyGenerator.generate(row, col,"reg"));
+                    enemies.add(EnemyGenerator.generate(row, col, roomNum));
                 }
-		if (grid[row].charAt(col) == 'V') {
-			enemies.add(EnemyGenerator.generate(row, col, "Viego"));
-		}
+		
             }
         }
 
@@ -96,11 +96,9 @@ public class Room {
                 if (cell == '#') {
                     // a unicode block symbol
                     System.out.print('\u2588');
-                } else if (cell == '+') {
-                	System.out.print('+');
-                } else if (cell == '-'){
-			System.out.print('-');
-		}else {
+                } else if (cell != '*' && cell != 'i' && cell != '@' && cell != 'V') {
+                	System.out.print(cell);
+                } else {
                     // whatever else, just draw a blank (we DONT draw starting items from map)
                     System.out.print(' ');
                 }
@@ -108,6 +106,14 @@ public class Room {
 
             System.out.print("\n\r");
         }
+    }
+    
+    public char getStaticCharAtLocation(int row, int col) {
+    	char staticChar = grid[row].charAt(col);
+    	if (staticChar != '*' && staticChar != 'i' && staticChar != '@') {
+    		return staticChar;
+    	}
+    	return ' ';
     }
 
     // returns if a given cell in the map is walkable or not
