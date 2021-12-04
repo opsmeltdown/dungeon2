@@ -4,27 +4,56 @@ import java.util.ArrayList;
 
 import ansi_terminal.*;
 
+/** Character is an entity with HP,
+ * can deal damage, and can take damage
+ * @author Tyler Martzall, John
+ */
 public abstract class Character extends Entity {
     // the characters health points
     private int hp;
 
+    /** Constructor sets needed Entity info and HP
+     * @param row Position.row
+     * @param col Position.col
+     * @param display Char used to show the Character on the map
+     * @param color The color of the above Char
+     * @param hp Total HP of the Character
+     */
     public Character(int row, int col, char display, Color color, int hp) {
         super(row, col, display, color);
         this.hp = hp;
     }
 
-    // get the hp, damage, protection and name of character
+    /** Get HP
+     * @return current HP
+     */
     public int getHealth() {
         return hp;
     }
+    /** Set HP
+     * @param newHp New value for HP
+     */
     public void setHealth(int newHp) {
     	hp = newHp;
     }
+    /** Get damage
+     * @return Damage this Character will inflict
+     */
     public abstract int getDamage();
+    /** Get protection
+     * @return Number of damage the Character will resist
+     */
     public abstract int getProtection();
+    /** Get name
+     * @return Character's name
+     */
     public abstract String getName();
 
-    // do damage to another player, returns if they died
+    /** Do damage to another Character
+     * @param other The other Character damage should be dealt to
+     * @param room The Room currently displayed
+     * @return Boolean if the other Character died or not
+     */
     private boolean dealDamage(Character other, Room room) {
         // this character does damage to the other character
         int damageDone = getDamage() - other.getProtection();
@@ -55,8 +84,12 @@ public abstract class Character extends Entity {
         }
     }
 
-    // this method performs one round of battle between two characters
-    // return false if the player has died aas a result
+    /** Perform one round of battle between 2 Characters
+     * @param other The other Character in the fight
+     * @param room The currently displayed Room
+     * @param enemies List of enemies in the current Room
+     * @return False if this Character dies
+     */
     public boolean fight(Character other, Room room, ArrayList<Enemy> enemies) {
         // do damage to them first
         boolean killed = dealDamage(other, room);

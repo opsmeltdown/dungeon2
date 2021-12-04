@@ -3,6 +3,10 @@
 
 import ansi_terminal.*;
 import java.util.Scanner;
+
+/** Starts the program, sets up Terminal and Game
+ * @author Tyler Martzall, John
+ */
 public class Main {
     public static void main(String args[]) {
     	Terminal.clear();

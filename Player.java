@@ -2,10 +2,19 @@
 
 import ansi_terminal.*;
 
+/** Player is a Character with an Inventory
+ * @author Tyler Martzall, John
+ */
 public class Player extends Character {
     private Inventory items;
     private String name;
 
+    /** Constructor takes basic info for Player
+     * Creates inventory and equips starter items
+     * @param start Beginning Position of Player
+     * @param name Name of Player
+     * @param health Player's total HP
+     */
     public Player(Position start, String name, int health) {
         // our starting details
         super(start.getRow(), start.getCol(), '@', Color.CYAN, health);
@@ -46,10 +55,16 @@ public class Player extends Character {
         }
     }
 
+    /** Get Player's Inventory
+     * @return Inventory
+     */
     public Inventory getInventory() {
         return items;
     }
     
+    /** Set Player's Inventory
+     * @param newInventory Inventory value
+     */
     public void setInventory(Inventory newInventory) {
     	items = newInventory;
     }

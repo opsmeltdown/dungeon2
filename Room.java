@@ -5,6 +5,9 @@
 import java.util.ArrayList;
 import ansi_terminal.*;
 
+/** Room holds a 2D array of characters representing the room
+ * @author Tyler Martzall, John
+ */
 public class Room {
     // the grid holds the room geometry
     private String[] grid;
@@ -13,6 +16,11 @@ public class Room {
     private int rows;
     private int cols;
 
+    /** Constructor takes a grid
+     * @param newGrid 2D array of characters representing room
+     * @param newRows Width of room
+     * @param newCols Height of room
+     */
     public Room(String[] newGrid, int newRows, int newCols) {
         // this initializes the room to one specific space
         rows = newRows;
@@ -23,7 +31,9 @@ public class Room {
         grid = newGrid;
     }
 
-    // returns the player's strting location in this room
+    /** Get starting position for player
+     * @return Position of "@" character (player starting pos)
+     */
     public Position getPlayerStart() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -36,8 +46,9 @@ public class Room {
         return null;
     }
 
-    // returns a set of item boxes for this map, this is here because it depends on
-    // the room geometry for where the boxes make sense to be
+    /** Create a list of Boxes on the map
+     * @return List of randomized Boxes
+     */
     public ArrayList<Box> getBoxes() {
         ArrayList<Box> boxes = new ArrayList<Box>();
         for (int row = 0; row < rows; row++) {
@@ -51,7 +62,9 @@ public class Room {
         return boxes;
     }
 
-    // returns a set of enemies from this map, similarly to the boxes above
+    /** Create a list of Enemies on the map
+     * @return List of randomized Enemies
+     */
     public ArrayList<Enemy> getEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         for (int row = 0; row < rows; row++) {
@@ -64,7 +77,10 @@ public class Room {
 
         return enemies;
     }
-    
+
+    /** Get Position of "+" character
+     * @return Portal position
+     */
     public Position getPortalPosition() {
     	for (int row = 0; row < rows; row++) {
     		for (int col = 0; col < cols; col++) {
@@ -76,15 +92,22 @@ public class Room {
     	return null;
     }
 
+    /** Get total number of rows
+     * @return rows
+     */
     public int getRows() {
         return rows;
     }
 
+    /** Get total number of columns
+     * @return cols
+     */
     public int getCols() {
         return cols;
     }
 
-    // draws the map to the screen
+    /** Output map by looping over 2D array grid
+     */
     public void draw() {
         Terminal.clear();
         for (int row = 0; row < rows; row++) {
@@ -105,6 +128,11 @@ public class Room {
         }
     }
     
+    /** Returns the char from a grid position
+     * @param row Position.row
+     * @param col Position.col
+     * @return char at Position
+     */
     public char getStaticCharAtLocation(int row, int col) {
     	char staticChar = grid[row].charAt(col);
     	if (staticChar != '*' && staticChar != 'i' && staticChar != '@') {
@@ -113,7 +141,11 @@ public class Room {
     	return ' ';
     }
 
-    // returns if a given cell in the map is walkable or not
+    /** Returns whether a cell is walkable
+     * @param row Target Position.row
+     * @param col Target Position.col
+     * @return True if not a wall, false if it is a wall
+     */
     public boolean canGo(int row, int col) {
         return grid[row].charAt(col) != '#';
     }

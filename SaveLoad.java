@@ -1,3 +1,4 @@
+// SaveLoad.java
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,9 +7,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/** Reads/Writes game state from a save file 
+ * @author Tyler Martzall, John
+ */
 public class SaveLoad {
 	static PrintWriter writer;
 
+	/** Write entire game state to a save file
+	 * @param roomNum Number of current Room
+	 * @param player Player instance
+	 * @param boxes List of Boxes in the current Room
+	 * @param enemies List of Enemies in the current Room
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
 	public static void save(int roomNum, Player player, ArrayList<Box> boxes, ArrayList<Enemy> enemies) throws FileNotFoundException, UnsupportedEncodingException {
 		// let us write to a file
 		writer = new PrintWriter("save.txt", "UTF-8");
@@ -67,13 +79,18 @@ public class SaveLoad {
 		writer.close();
 	}
 	
-	// write row and column of position :w
+	/**
+	 * Write a row and column of a Position instance
+	 * @param position Position to write
+	 */
 	private static void writePosition(Position position) {
 		writer.println(position.getRow());
 		writer.println(position.getCol());
 	}
 	
-	// write all of the stats of an item
+	/** Write all stats of an item
+	 * @param item Item to record
+	 */
 	private static void writeItem(Item item) {
 //		writer.print("item name: ");
 		writer.println(item.getName());
@@ -87,16 +104,29 @@ public class SaveLoad {
 		writer.println(item.getType());
 	}
 	
+	/** Gets the string of a specific line
+	 * @param num Line number to read
+	 * @return String of contents of line
+	 * @throws IOException
+	 */
 	private static String getLine(int num) throws IOException {
 		String line = Files.readAllLines(Paths.get("save.txt")).get(num);
 		return line;
 	}
 	
+	/** Get room number
+	 * @return Number of Room
+	 * @throws IOException
+	 */
 	public static int loadRoomNum() throws IOException {
 		String roomNum = getLine(0);
 		return Integer.parseInt(roomNum);
 	}
 	
+	/** Get player from save file
+	 * @return Player instance with Inventory
+	 * @throws IOException
+	 */
 	public static Player loadPlayer() throws IOException {
 		String name = getLine(1);
 		String row = getLine(2);
@@ -122,6 +152,11 @@ public class SaveLoad {
 		return player;
 	}
 	
+	/** Read an item from save file
+	 * @param line Line to start at
+	 * @return Item instance
+	 * @throws IOException
+	 */
 	private static Item getItem(int line) throws IOException {
 		String itemName = getLine(line);
 		int weight = Integer.parseInt(getLine(line + 1));
@@ -152,6 +187,10 @@ public class SaveLoad {
 		return item;
 	}
 
+	/** Get all boxes from save file
+	 * @return List of Box items
+	 * @throws IOException
+	 */
 	public static ArrayList<Box> loadBoxes() throws IOException {
 		int itemCount = Integer.parseInt(getLine(5));
 		int boxCount = Integer.parseInt(getLine(6));
@@ -177,6 +216,10 @@ public class SaveLoad {
 		return boxes;
 	}
 	
+	/** Get all enemies from save file
+	 * @return List of Enemy Instances
+	 * @throws IOException
+	 */
 	public static ArrayList<Enemy> loadEnemies() throws IOException {
 		int itemCount = Integer.parseInt(getLine(5));
 		int boxCount = Integer.parseInt(getLine(6));

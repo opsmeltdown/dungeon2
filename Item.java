@@ -1,7 +1,9 @@
 // Item.java
-// this class represents a single item, it could be an equippable
-// thing like weapon or ring, or something generic
 
+/**
+ * An Item has a type, name, weight, value and strength
+ * @author Tyler Martzall, LLC, John
+ */
 public class Item {
     // what sort of item it is
     private ItemType type;
@@ -20,6 +22,13 @@ public class Item {
     // for armor, it's protection
     private int strength;
 
+    /** Constructor that sets basic Item info
+     * @param name Name of the item
+     * @param weight Weight of the item, how much space it takes up in the inventory
+     * @param value Value of the item
+     * @param strength Strength of the item (damage or resistance for weapon or armor)
+     * @param type Weapon, Armor or Other
+     */
     public Item(String name, int weight, int value, int strength, ItemType type) {
         this.type = type;
         this.name = name;
@@ -28,22 +37,37 @@ public class Item {
         this.strength = strength;
     }
 
+    /** Get item weight
+     * @return Weight of item (how much space in inventory to take up)
+     */
     public int getWeight() {
         return weight;
     }
 
+    /** Get value of item
+     * @return Item value
+     */
     public int getValue() {
         return value;
     }
 
+    /** Get item strength
+     * @return Strength of item
+     */
     public int getStrength() {
         return strength;
     }
 
+    /** Get item name
+     * @return Item Name
+     */
     public String getName() {
         return name;
     }
 
+    /** Get ItemType
+     * @return ItemType
+     */
     public ItemType getType() {
         return type;
     }

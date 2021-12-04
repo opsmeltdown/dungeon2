@@ -4,6 +4,9 @@
 import java.util.ArrayList;
 import ansi_terminal.*;
 
+/** Orchestrates the Game
+ * @author Tyler Martzall, John
+ */
 public class Game {
 	private World world;
     private Room room;
@@ -13,6 +16,9 @@ public class Game {
     private ArrayList<Enemy> enemies;
     private String name;
 
+    /** Constructor sets up a new Game
+     * @param newName Name of the player's Character
+     */
     public Game(String newName) {
     	name = newName;
     	world = new World();
@@ -23,6 +29,8 @@ public class Game {
         portalPosition = room.getPortalPosition();
     }
     
+    /** Sets up the next Room
+     */
     private void newRoom() {
     	world.nextRoom();
     	room = world.getCurrentRoom();
@@ -33,7 +41,8 @@ public class Game {
         redrawMapAndHelp();
     }
 
-    // prints a help menu to the left of the map
+    /** Outputs the help menu to the side of the map
+     */
     private void showHelp() {
         String[] cmds = {player.getName() + ": " + player.getHealth() + " hp",
 			 "Commands:",
@@ -56,7 +65,9 @@ public class Game {
         Terminal.reset();
     }
 
-    // right under the map we keep a line for status messages
+    /** Status message is printed under the map
+     * @param mesg Message to put under the map
+     */
     private void setStatus(String mesg) {
         // clear anything old first
         Terminal.warpCursor(room.getRows(), 0);
@@ -69,7 +80,9 @@ public class Game {
         System.out.print(mesg);
     }
 
-    // code for when the player tries to pickup an item
+    /** Attempts to pick up Item under player
+     * This can fail if there's no item or the inventory if full
+     */
     private void pickup() {
         Box thing = checkForBox();
         if (thing == null) {
@@ -86,7 +99,9 @@ public class Game {
         }
     }
 
-    // code for when the player tries to drop an item
+    /** Attempts to drop an Item
+     * This can fail if there is something in the way
+     */
     private void drop() {
         if (checkForBox() == null) {
             Item dropped = player.getInventory().drop();
@@ -100,7 +115,10 @@ public class Game {
         }
     }
 
-    // handle the key which was read - return false if we quit the game
+    /** Handle input
+     * @param key Key pressed by player
+     * @return True to continue, false if the game should be exited
+     */
     private boolean handleKey(Key key) {
         switch (key) {
             case p:
@@ -152,14 +170,16 @@ public class Game {
         return true;
     }
 
-    // this is called when we need to redraw the room and help menu
-    // this happens after going into a menu like for choosing items
+    /** Draw map and Help
+     */
     private void redrawMapAndHelp() {
         room.draw();
         showHelp();
     }
 
-    // returns a Box if the player is on it -- otherwise null
+    /** Checks for a Box under the player
+     * @return True if Box, false otherwise
+     */
     private Box checkForBox() {
         Position playerLocation = player.getPosition();
 
@@ -172,6 +192,9 @@ public class Game {
         return null;
     }
     
+    /** Checks for a portal under the player
+     * @return True if portal, false otherwise
+     */
     private boolean checkForPortal() {
     	Position playerLocation = player.getPosition();
  
@@ -182,6 +205,9 @@ public class Game {
     }
 
     // check for battles and return false if player has died
+    /** Checks for adjacent Enemies and does battle with them
+     * @return False if the player dies, True otherwise
+     */
     private boolean checkBattles() {
         Position playerLocation = player.getPosition();
 
@@ -204,6 +230,9 @@ public class Game {
         return true;
     }
 
+    /** Game loop, draws map and help, draw entities,
+     * move enemies, take input, do battle, check for entities under the player
+     */
     public void run() {
         // draw these for the first time now
         redrawMapAndHelp();
@@ -267,6 +296,8 @@ public class Game {
         }
     }
     
+    /** Write out to a file
+     */
     private void save() {
 		try {
 			int roomNum = world.getRoomNum();
@@ -277,6 +308,8 @@ public class Game {
 		}
     }
     
+    /** Load game state from a file
+     */
     private void load() {
         try {
             int loadRoomNum = SaveLoad.loadRoomNum();

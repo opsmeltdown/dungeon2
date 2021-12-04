@@ -1,6 +1,9 @@
 import java.util.Random;			
 import java.util.ArrayList;
 
+/** Genrates a random item
+ * @author Tyler Martzall, John
+ */
 public class ItemGenerator {		//will return a randomly generated item
 	
 	private static ArrayList<Item> itemBank = new ArrayList<Item>();
@@ -27,7 +30,11 @@ public class ItemGenerator {		//will return a randomly generated item
 		itemBank.add(new Item("Ring of the Lost Queen", 1, 500, 0, ItemType.Other));
 
 	}
-	public static Item generate() {			//gets a random index of itemBank to and sends to inventory 
+	
+	/** Return a random Item from itemBank
+	 * @return Random Item
+	 */
+	public static Item generate() {
 		Random randomNum = new Random();
 		int randomIndex = randomNum.nextInt(itemBank.size());
 		return itemBank.get(randomIndex);

@@ -1,5 +1,8 @@
 // World.java
 
+/** World holds all 3 rooms for a Game
+ * @author Tyler Martzall, John
+ */
 public class World {
 	private Room[] rooms;
 	private int currentRoom;
@@ -101,6 +104,8 @@ public class World {
         "#################################################           ",
 	};
 	
+	/** Constructor creates a World with all 3 above rooms
+	 */
 	public World() {
 		rooms = new Room[3];
 		currentRoom = 0;
@@ -109,18 +114,29 @@ public class World {
 		rooms[2] = new Room(grid3, 30, 60);
 	}
 
+	/** Gets the current room
+	 * @return Room
+	 */
 	public Room getCurrentRoom() {
 		return rooms[currentRoom];
 	}
 	
+	/** Sets the current Room
+	 * @param num Which Room to set 1-3
+	 */
 	public void setRoomNum(int num) {
 		currentRoom = num;
 	}
 	
+	/** Get current Room
+	 * @return Room
+	 */
 	public int getRoomNum() {
 		return currentRoom;
 	}
 	
+	/** Sets the current Room to the next in the list
+	 */
 	public void nextRoom() {
 		currentRoom++;
 	}

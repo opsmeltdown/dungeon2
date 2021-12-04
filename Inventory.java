@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 import ansi_terminal.*;
 
+/**
+ * A list of items, a max width and equipped armor/weapon
+ * @author Tyler Martzall, John
+ */
 public class Inventory {
     // the actual list of items
     private ArrayList<Item> items;
@@ -17,12 +21,18 @@ public class Inventory {
     // the max weight limit for the player here
     private int maxWeight;
 
+    /** Constructor sets max weight
+     * @param maxWeight Max weight of items in list
+     */
     public Inventory(int maxWeight) {
         items = new ArrayList<Item>();
         this.maxWeight = maxWeight;
     }
 
-    // returns true on success, false when full
+    /** Adds an item to the list
+     * @param item Item to add
+     * @return True if the item was added, false if it goes over maxWeight
+     */
     public boolean add(Item item) {
         if ((item.getWeight() + totalWeight()) > maxWeight) {
             return false;
@@ -32,8 +42,9 @@ public class Inventory {
         }
     }
 
-    // this method not only adds the item, but equips it into the correct slot
-    // it is used for setting up the player's starting gear
+    /** Add an item to the Inventory and equip it
+     * @param item Item to add and equip
+     */
     public void addAndEquip(Item item) {
         items.add(item);
 
@@ -44,16 +55,23 @@ public class Inventory {
         }
     }
 
-    // get the equipped weapon and armor
+    /** Get equipped weapon
+     * @return equipped weapon
+     */
     public Item getEquippedWeapon() {
         return equippedWeapon;
     }
 
+    /** Get equipped armor
+     * @return equipped armor
+     */
     public Item getEquippedArmor() {
         return equippedArmor;
     }
 
-    // returns the total weight of all items stored
+    /** Get weight of all items in the list
+     * @return Total weight
+     */
     public int totalWeight() {
         int total = 0;
         for (Item i : items) {
@@ -62,8 +80,10 @@ public class Inventory {
         return total;
     }
 
-    // print all of the items in the list, that match they given type (can be null)
-    // returns the number of items matching they type
+    /** Output items in the Item list
+     * @param filter Filter Items by type and only display those
+     * @return Total number of items displayed
+     */
     private int print(ItemType filter) {
         // clear the terminal so we print over all else
         Terminal.clear();
@@ -95,19 +115,23 @@ public class Inventory {
         return num;
     }
 
-    // stay here until the user is ready to go back
+    /** Pause for player input
+     */
     public void pressAnyKey() {
         System.out.printf("\n\rPress any key to return...\n\r");
         Terminal.getKey();
     }
 
-    // print all of the items in the list
+    /** Print all of the items in the list
+     */
     public void print() {
         print(null);
         pressAnyKey();
     }
 
-    // drop an item from the inventory, return what was dropped
+    /** Drop an item from the inventory
+     * @return Item that was dropped
+     */
     public Item drop() {
         Item toDrop = pickItem(null);
         if (toDrop != null) {
@@ -131,7 +155,10 @@ public class Inventory {
         return toDrop;
     }
 
-    // equip something
+    /** Equip an item of a specific type
+     * @param type ItemType to equip
+     * @return Item that was equipped
+     */
     private Item equip(ItemType type) {
         Item thing = pickItem(type);
         if (thing != null) {
@@ -143,18 +170,24 @@ public class Inventory {
         return thing;
     }
 
-    // equip a weapon
+    /** Equip a weapon
+     */
     public void equipWeapon() {
         equippedWeapon = equip(ItemType.Weapon);
     }
 
-    // equip a piece of armor
+    /** Equip armor
+     */
     public void equipArmor() {
         equippedArmor = equip(ItemType.Armor);
     }
 
     // a method which allows users to choose an item
     // this is private - only called by drop and equip
+    /** Print Items of the type passed, and allow Player to choose one
+     * @param filter ItemType to filter by (print only this type)
+     * @return Selected Item
+     */
     private Item pickItem(ItemType filter) {
         // print all the matching items
         int options = print(filter);
@@ -198,6 +231,9 @@ public class Inventory {
         }
     }
     
+    /** Get Item list
+     * @return Item list
+     */
     public ArrayList<Item> getItems() {
     	return items;
     }
