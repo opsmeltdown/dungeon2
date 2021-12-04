@@ -72,7 +72,7 @@ public class Room {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (grid[row].charAt(col) == '*') {
-                    enemies.add(EnemyGenerator.generate(row, col, roomNum));
+                    enemies.add(EnemyGenerator.generate(row, col));
                 }
 		
             }
