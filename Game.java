@@ -235,7 +235,19 @@ public class Game {
                 setStatus("You have been killed :(\n\r");
                 playing = false;
             }
-
+	    //checking if final boss is alive or dead, ending the game if hes dead
+	    if (world.getRoomNum() == 2) {
+		boolean alive = false;
+	    	for (Enemy enemy : enemies) {
+			if (enemy.getName().equals("Viego")) {
+				alive = true;
+			}
+		}
+		if (alive = false){
+			setStatus("You have beaten the Ruined King! :\n\r");
+			playing = false;
+		}
+	    }
             // check if we are on a box and print what's in it
             Box thingHere = checkForBox();
             if (thingHere != null) {

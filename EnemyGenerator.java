@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class EnemyGenerator {
 	
 
-    public static Enemy generate(int row, int col) {
+    public static Enemy generate(int row, int col, String type) {
 	ArrayList<Enemy> enemyBank = new ArrayList<Enemy>();
 	{
 		enemyBank.add(new Enemy("Ghoul", '*',row, col, 15, 5, 3));
@@ -19,6 +19,9 @@ public class EnemyGenerator {
 
         Random randomNum = new Random();
 	int randomIndex = randomNum.nextInt(enemyBank.size());
+	if (type.equals("Viego")) {
+		return new Enemy("Viego", 'V', row, col, 50, 20, 11);
+	}
 	return enemyBank.get(randomIndex);
     }
 }

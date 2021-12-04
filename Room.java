@@ -57,8 +57,11 @@ public class Room {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (grid[row].charAt(col) == '*') {
-                    enemies.add(EnemyGenerator.generate(row, col));
+                    enemies.add(EnemyGenerator.generate(row, col,"reg"));
                 }
+		if (grid[row].charAt(col) == 'V') {
+			enemies.add(EnemyGenerator.generate(row, col, "Viego"));
+		}
             }
         }
 
